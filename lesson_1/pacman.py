@@ -54,3 +54,5 @@ look_arround()
 move_forward(2)
 look_arround()
 move_back(2)
+
+print("Game over!")
