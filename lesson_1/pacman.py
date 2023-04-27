@@ -1,37 +1,42 @@
-STORE_EVENT = 'log'
-IGNORE_EVENT = 'ignore'
+ALLOWED_EVENT = 'allowed'
+FORBIDDEN_EVENT = 'forbidden'
 
-history = ()
+allowed_actions = []
 
-def movement_history(event_type: str = IGNORE_EVENT):
-        def decorator(func):
-                if event_type == STORE_EVENT:
-                        history.append(func)
-                print('Inside decorator func')
-                def wrapper(*args, **kwargs):
-                        print('Inside inner func')
+
+def movement_history(event_type: str = FORBIDDEN_EVENT):
+    def decorator(func):
+            print(f"Loading available game actions: {func.__name__}")
+            if event_type == ALLOWED_EVENT:
+                allowed_actions.append(func.__name__)
+            def wrapper(*args, **kwargs):
+                if func.__name__ in allowed_actions:
                         return func(*args, **kwargs)
-                return wrapper
+                else:
+                    print('Action not allowed. Ignoring')
+            return wrapper
+    return decorator
 
-print(f"History on start: {history}")
+
+print(f"Allowed acions: {allowed_actions}")
 
 
-@movement_history(event_type=STORE_EVENT)
+@movement_history(ALLOWED_EVENT)
 def move_forward(steps: int):
     print(f'Moving forward {steps} steps...')
 
 
-@movement_history(event_type=STORE_EVENT)
+@movement_history(ALLOWED_EVENT)
 def turn_left():
     print(f'Turning left')
 
 
-@movement_history(event_type=STORE_EVENT)
-def turn_left():
+@movement_history(ALLOWED_EVENT)
+def turn_right():
     print(f'Turning right')
 
 
-@movement_history(event_type=STORE_EVENT)
+@movement_history(ALLOWED_EVENT)
 def move_back(steps: int):
     print(f'Moving back {steps} steps...')
 
@@ -39,7 +44,8 @@ def move_back(steps: int):
 def look_arround():
     print('Just looking around...')
 
-print(f"Final history: {history}")
+
+print(f"Allowed acions: {allowed_actions}")
 
 move_forward(5)
 move_forward(3)
@@ -48,7 +54,3 @@ look_arround()
 move_forward(2)
 look_arround()
 move_back(2)
-
-
-def replay_history():
-       (action() for action in history)
