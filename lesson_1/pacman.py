@@ -1,3 +1,7 @@
+"""
+Sample of decorator used to block secret actions in Pacman game
+"""
+
 ALLOWED_EVENT = 'allowed'
 FORBIDDEN_EVENT = 'forbidden'
 
