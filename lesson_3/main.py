@@ -1,6 +1,7 @@
 from flask import Flask, request
 from random import randint
 from dataclasses import dataclass
+from typing import Union
 import re
 
 app = Flask(__name__)
@@ -55,7 +56,7 @@ class User():
     name: str = ''
     language: str = ''
     course: str = ''
-    grade: int = ''
+    grade: int = 0
 
     def __init__(self, name='', language=''):
         self.name = name
@@ -64,7 +65,8 @@ class User():
     def choose_course(self, course: Course):
         self.course = course
 
-    def get_grade(self):
+    @staticmethod
+    def get_grade():
         return randint(1, 12)
 
 class ProgrammingCourses():
@@ -75,11 +77,12 @@ class ProgrammingCourses():
     def add_course(self, course: Course):
         self.courses[course.id] = course
     
-    def get_course_id_by_name(self, course_name: str) -> bool:
+    def get_course_id_by_name(self, course_name: str) -> Union[str, ValueError]:
         correct_id = ''
         for course_id, course in self.courses.items():
             if course_name == course.name:
                 correct_id = course_id
+                break
         
         print(f"Correct id: {correct_id}")
         if not correct_id:
