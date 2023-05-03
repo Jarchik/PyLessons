@@ -131,9 +131,10 @@ class ProgrammingCourses():
     def create_user(self, request):
         if not self.student:
             try:
-                user_name = str(request.form.get('name'))
+                user_name = request.form.get('name')
                 self.validate_text_value(user_name)
-                user_lang = str(request.form.get('langs'))
+                
+                user_lang = request.form.get('langs')
                 self.validate_text_value(user_lang)
 
                 self.student = User(name=user_name, language=user_lang)
@@ -141,6 +142,8 @@ class ProgrammingCourses():
 
             except ValueError as e:
                 return 'Wrong data! User cannot be created.' + str(e)
+            except TypeError as e:
+                return 'Wrong data! User name and language should be specified!'
             return 'Registred!'
         else:
             return 'You have been already registrated here!'
