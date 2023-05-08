@@ -144,7 +144,7 @@ class ProgrammingCourses():
         
         return correct_id
     
-    def create_user(self, request) -> str:
+    def create_user(self, request) -> Union[bool, ProgrammingCoursesException]:
         if self.student:
             raise ProgrammingCoursesException('You are already registered here!')
 
@@ -185,7 +185,7 @@ class ProgrammingCourses():
 
         return True
     
-    def login(self, request) -> bool:
+    def login(self, request) -> Union[bool, ProgrammingCoursesException]:
         if not self.student:
 
             user_name = request.form.get('name')
