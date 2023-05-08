@@ -78,7 +78,6 @@ class UserModel():
     def select_course(self, course_id: str, student_name: str) -> Union[bool, ProgrammingCoursesException]:
         try:
             sql = f"UPDATE user SET Course='{course_id}' WHERE Name = '{student_name}';"
-            print(f"sql: {sql}")
             cur = get_db().cursor()
             cur.execute(sql)
             get_db().commit()
@@ -91,7 +90,6 @@ class UserModel():
     def set_grade(self, grade: int, student_name: str) -> Union[bool, ProgrammingCoursesException]:
         try:
             sql = f"UPDATE user SET Grade={grade} WHERE Name = '{student_name}';"
-            print(f"sql: {sql}")
             cur = get_db().cursor()
             cur.execute(sql)
             get_db().commit()
