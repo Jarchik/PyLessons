@@ -1,0 +1,30 @@
+<!doctype html>
+<title>Programming courses</title>
+{% if user and error_msg %}
+  <h1>Hello {{ user.name }}! {{ error_msg }}</h1>
+{% elif not user and error_msg %}
+  <h1>{{ error_msg }}</h1>
+{% elif user and not error_msg %}
+  <h1>Welcome, {{ user.name }}</h1>
+  <div>
+    <span>Your language: {{ user.language }}</span></br>
+    <span>Your course: {{ user.course.id }}</span></br>
+    <span>Your grade: {{ user.grade }}</span>
+  </div>
+{% else %}
+    <form action="/register_user" method="POST">
+        <div>
+            <label for="user_name">Please enter new student's name</label>
+            <input name="name" id="user_name" value="Enter user name" />
+        </div>
+        <div>
+            <label for="lang">Choose a language:</label>
+
+            <select name="langs" id="langs">
+            <option value="ukr" selected>Ukrainian</option>
+            <option value="eng">English</option>
+            </select>
+        </div>
+        <button>Register</button>
+    </form>
+{% endif %}

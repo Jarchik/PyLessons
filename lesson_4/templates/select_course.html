@@ -1,0 +1,32 @@
+<!doctype html>
+<title>Programming courses</title>
+{% if user %}
+  <h1>Hello {{ user.name }}!</h1>
+  <div>
+    <span>Your language: {{ user.language }}</span></br>
+    <span>Your course: {{ user.course.id if user.course.id else '---' }}</span></br>
+    <span>Your grade: {{ user.grade if user.grade else '---' }}</span>
+  </div>
+{% endif %}
+{% if user and not error_msg and not user.course %}
+  <h3>Courses registration</h3>
+  <form action="/select_course" method="POST">
+      <fieldset><legend>Select a course:</legend>
+        {% for _, course in courses.items() %}
+        <div>
+          <input type="radio" id="{{course.id}}" name="course_name" value="{{course.name}}">
+          <label for="{{course.id}}">{{course.name}}</label>
+        </div>
+        {% endfor %}
+      </fieldset>
+      <div>
+      <button type="submit">Submit</button>
+      </div>
+  </form>
+{% elif user and not error_msg and user.course %}
+  <h1>You selected course: {{ user.course.name }}</h1>
+{% elif not user and error_msg %}
+  <h1>{{ error_msg }}</h1>
+{% elif not user %}
+  <h1>You are not authorized. Please login to access course selection!</h1>
+{% endif %}
