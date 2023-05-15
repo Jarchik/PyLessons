@@ -2,7 +2,7 @@
 {% block content %}
 {% if student %}
   <h2>Grade: {{ student.grade }}</h2>
-{% elif not student %}
+{% else %}
   <h1>You are not authorized. Please <a href="/login">Login</a> to access course selection!</h1>
 {% endif %}
 {% if error_message %}

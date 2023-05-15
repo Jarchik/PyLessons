@@ -5,18 +5,18 @@
     <title>Programming courses++</title>
 </head>
 <body>
-    <div id="user_info">
-        {% block user_info %}
-        {% if student %}
+    {% block user_info %}
+    {% if student %}
+        <div id="user_info">
             <h1>Hello {{ student.username }}!</h1>
             <div>
                 <span>Your language: {{ student.language }}</span></br>
                 <span>Your course: {{ student.course.name }}</span></br>
                 <span>Your grade: {{ student.grade }}</span>
             </div>
-        {% endif %}
-        {% endblock user_info%}
-    </div>
+        </div>
+    {% endif %}
+    {% endblock user_info%}
     <div id="content">
         {% block content %}{% endblock content%}
     </div>

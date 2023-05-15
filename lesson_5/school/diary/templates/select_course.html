@@ -4,7 +4,7 @@
 <title>Programming courses</title>
 {% if courses and not error_message and not student.course %}
   <h3>Courses registration</h3>
-  <form action="/diary/select_course/" method="POST">
+  <form action="/diary/select_course/" method="POST">{% csrf_token %}
       <fieldset><legend>Select a course:</legend>
         {% for course in courses %}
         <div>
@@ -20,6 +20,6 @@
 {% elif student and not error_message and student.course %}
   <h1>You selected course: {{ student.course.name }}</h1>
 {% elif not student %}
-  <h1>You are not authorized. Please <a href="/login">Login</a> to access course selection!</h1>
+  <h1>You are not authorized. Please <a href="/diary/login">Login</a> to access course selection!</h1>
 {% endif %}
 {% endblock %}
