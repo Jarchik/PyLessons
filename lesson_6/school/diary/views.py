@@ -21,8 +21,7 @@ def validate_text_value(value) -> Union[None, ValueError]:
 
 def get_user_from_session(request, students_manager) -> Union[None, Student]:
     student = None
-    if request.session.get("user_id", False):
-        session_student = request.session.get("user_id")
+    if session_student := request.session.get("user_id", False):
         print(f"User_id: {session_student}")
         student = students_manager.get(username=session_student)
         print(f"Student: {student}")
@@ -82,7 +81,7 @@ def select_course(request):
             print(f"Student: {student}")
             student.save()
         except (KeyError, Course.DoesNotExist):
-            error_message =  "You haven't selected any course."
+            error_message =  "You haven't selected any course or selected course is net active yet"
     elif not student:
         error_message =  "You are not registered here."
 
@@ -119,6 +118,10 @@ def get_grade(request):
             "error_message": error_message,
         },
     )
+
+def csrf_failure(request, reason=""):
+    return HttpResponse('Ha-ha, not so fast!')
+
 
 def my_week(request):
     my_week = WeekDay.objects.all()
