@@ -1,0 +1,13 @@
+<!doctype html>
+<title>Programming courses</title>
+{% if user %}
+  <h1>Hello {{ user.name }}!</h1>
+  <div>
+    <span>Your language: {{ user.language }}</span></br>
+    <span>Your course: {{ user.course.id }}</span></br>
+    <span>Your grade: {{ user.grade }}</span>
+  </div>
+  <h2>Grade: {{ user.grades }}</h2>
+{% elif error_msg %}
+  <h1>{{ error_msg }}</h1>
+{% endif %}
