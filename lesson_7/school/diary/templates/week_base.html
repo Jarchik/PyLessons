@@ -12,5 +12,13 @@
 
 {% block main_part %}{% endblock main_part %}
 
+    </br></br></br>
+    <div id="menubar">
+        {% block menu %}
+        <ul>
+            <li><a href="{% url 'my_week' %}">Week view</a></li>
+        </ul>
+        {% endblock menu%}
+    </div>
 </body>
 </html>
