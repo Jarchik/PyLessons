@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <title>Programming courses++</title>
+</head>
+<body>
+    {% block user_info %}
+    {% if student %}
+        <div id="user_info">
+            <h1>Hello {{ student.username }}!</h1>
+            <div>
+                <span>Your language: {{ student.language }}</span></br>
+                <span>Your course: {{ student.course.name }}</span></br>
+                <span>Your grade: {{ student.grade }}</span>
+            </div>
+        </div>
+    {% endif %}
+    {% endblock user_info%}
+    <div id="content">
+        {% block content %}{% endblock content%}
+    </div>
+    </br></br></br>
+    <div id="menubar">
+        {% block menu %}
+        <ul>
+            <li><a href="{% url 'login' %}">Login</a></li>
+            <li><a href="{% url 'select_course' %}">Course selection</a></li>
+            <li><a href="{% url 'get_grade' %}">Get grade</a></li>
+        </ul>
+        {% endblock menu%}
+    </div>
+</body>
+</html>

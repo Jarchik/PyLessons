@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+{% if not student %}
+    <form action="/diary/login/" method="POST">{% csrf_token %}
+        <div>
+            <label for="student_name_input">Please enter new student's name</label>
+            <input name="student_name" id="student_name_input" value="Enter user name" />
+        </div>
+        <div>
+            <label for="lang">Choose a language:</label>
+
+            <select name="student_lang" id="langs">
+                <option value="ukr" selected>Ukrainian</option>
+                <option value="eng">English</option>
+            </select>
+        </div>
+        <button>Login</button>
+    </form>
+{% endif %}
+{% endblock %}
