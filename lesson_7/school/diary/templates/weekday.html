@@ -1,0 +1,15 @@
+{% extends "./week_base.html" %}
+
+{% block title %}
+    <h2>Week Day: {{ week_day.day }}</h2>
+{% endblock title %}
+
+{% block main_part %}
+    {%  if week_day.note_set.all %}
+        <ul>
+            {% for note in week_day.note_set.all %}
+                <li><a href="/day/{{ week_day.id }}/note/{{ note.id }}">{{ note.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+{% endblock main_part %}
