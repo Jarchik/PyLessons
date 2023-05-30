@@ -1,0 +1,14 @@
+{% extends "./week_base.html" %}
+
+{% block main_part %}
+    {%  if days %}
+        <ul>
+            {% for day in days %}
+                <li><a href="/day/{{ day.id }}">{{ day.day }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+{% block day_detail %}{% endblock day_detail %}
+
+{% endblock main_part %}
