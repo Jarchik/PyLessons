@@ -9,7 +9,7 @@ class NoteForm(forms.Form):
     email = forms.CharField(max_length=100, empty_value="")
 
     def __init__(self, *args, **kwargs):
-        super(NoteForm, self).__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
         self.fields['assignee'].required = False
         self.fields['email'].required = False
 
@@ -21,32 +21,28 @@ class NoteForm(forms.Form):
 
     @staticmethod
     def check_isalpha_and_capitalized(str_to_check: str):
-        if not str_to_check[0].isalpha() and not str_to_check[0].isupper():
-            raise ValidationError("Please create Title with at least two words")
+        if not all((str_to_check.isalpha(), str_to_check.istitle())):
+            raise ValidationError("Should contain at least two words started with capitalized letter")
 
     def clean_assignee(self):
         data = self.cleaned_data['assignee']
-        if not data:
-            return data
+        if data:
+            assignee_name_and_surname = data.split(' ')
+            if len(assignee_name_and_surname) < 2:
+                raise ValidationError("Please create Assignee with Firstname and Surname at least")
 
-        assignee_name_and_surname = data.split(' ')
-        if len(assignee_name_and_surname) < 2:
-            raise ValidationError("Please create Title with at least two words")
-
-        NoteForm.check_isalpha_and_capitalized(assignee_name_and_surname[0])
-        NoteForm.check_isalpha_and_capitalized(assignee_name_and_surname[1])
+            NoteForm.check_isalpha_and_capitalized(assignee_name_and_surname[0])
+            NoteForm.check_isalpha_and_capitalized(assignee_name_and_surname[1])
 
         return data
 
     def clean_email(self):
         data = self.cleaned_data['email']
-        if not data:
-            return data
+        if data:
+            super().clean()
 
-        super().clean()
-
-        if not data.endswith('@ithillel.ua'):
-            raise ValidationError("Email domain should belong to ithillel.ua")
+            if not data.endswith('@ithillel.ua'):
+                raise ValidationError("Email domain should belong to ithillel.ua")
 
         return data
 
