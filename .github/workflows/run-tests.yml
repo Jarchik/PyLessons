@@ -13,6 +13,6 @@ jobs:
       - name: Install requirements
         run: pip install flake8
       - name: Execute flake8 linter
-        run: flake8 lesson_11/school --config PyLessons/lesson_11/school/.flake8
+        run: flake8 lesson_11/school --config lesson_11/school/.flake8
       - name: Execute tests
         run: pytest lesson_11/school/.flake8
