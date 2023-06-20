@@ -1,0 +1,32 @@
+{% extends "./week_base.html" %}
+
+{% block title %}
+    <h2>Week Day: {{ week_day.day }}</h2>
+{% endblock title %}
+
+{% block main_part %}
+    {%  if week_day.note_set.all %}
+        <ul>
+            {% for note in week_day.note_set.all %}
+                <li><a href="{% url 'my_note' note.id %}">{{ note.title }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    <form action="{% url 'new_note' week_day.id %}" method="post">
+        {% csrf_token %}
+        <fieldset>
+            <legend><h3>New Note for the {{ week_day.day }}</h3></legend>
+            {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+            <input type="text" name="title" id="note_title" value="Title">
+            <label for="note_title">Please Title your Note</label><br>
+            <input type="text" name="msg" id="note_msg" value="Note ...">
+            <label for="note_msg">Please share your thoughts</label><br>
+            <input type="text" name="assignee" id="note_assignee" value="John Doe">
+            <label for="note_assignee">Specify assignee (Firstname Surname)</label><br>
+            <input type="text" name="email" id="note_email" value="Email">
+            <label for="note_email">Please specify assignee email</label><br>
+        </fieldset>
+        <input type="submit" value="Save Note">
+    </form>
+{% endblock main_part %}
