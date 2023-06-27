@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Week Plans</title>
+</head>
+<body>
+<header>
+    {% if request.user.is_authenticated %}
+        {{ request.user.username }} <a href="{% url 'logout' %}">Log me out please!</a>
+    {% endif %}
+</header>
+
+{% block title %}
+    <h1>My Cool Week</h1>
+{% endblock title %}
+
+{% block main_part %}{% endblock main_part %}
+
+    </br></br></br>
+    <div id="menubar">
+        {% block menu %}
+        <ul>
+            <li><a href="{% url 'my_week' %}">Week view</a></li>
+            {% if request.user.is_authenticated %}
+                <li><a href="{% url 'logout' %}">Log me out please!</a></li>
+            {% else %}
+                <li><a href="{% url 'login' %}">Log in</a></li>
+                <li><a href="{% url 'register' %}">Register</a></li>
+            {% endif %}
+        </ul>
+        {% endblock menu%}
+    </div>
+</body>
+</html>
